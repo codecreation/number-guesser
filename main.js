@@ -28,7 +28,7 @@ guessBtn.addEventListener('click', function(){
     //check to win
     if(guess === rand){
       gameOver(true, 'CORRECT! You win with ' + guessCount + (guessCount===1?(' attempt remaining'):(' attempts remaining')));
-      // retry();
+      
     }else if(guess > rand && guess <= max){
       guessCount--;
         setMessage('Too high. You have ' + guessCount + (guessCount===1?(' attempt left'):(' attempts left')), 'orange');
@@ -38,16 +38,11 @@ guessBtn.addEventListener('click', function(){
       }
       if(guessCount === 0){
         gameOver(false, 'You lose! The number was ' + rand);
-        // retry();
+
       }
 })
 
-//retry
 
-// function retry() {
-//   var btn = document.createElement("guess-btn");
-//   document.getElementById("guess-btn").appendChild(btn);
-// }
 
 //game over
 function gameOver(won, msg){
@@ -57,6 +52,9 @@ function gameOver(won, msg){
   guessBtn.disabled = true;
   guessInput.style.borderColor = color;
   setMessage(msg, color);
+
+  guessBtn.value = 'Play Again';
+  guessBtn.className += 'play-again';
 }
 
 //set message
