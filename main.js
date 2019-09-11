@@ -55,7 +55,6 @@ function gameOver(won, msg){
   let color;
   won === true? color = 'green': color = 'red';
   guessInput.disabled = true;
-  guessBtn.disabled = true;
   guessInput.style.borderColor = color;
   setMessage(msg, color);
 
