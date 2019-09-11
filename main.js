@@ -1,7 +1,8 @@
-let min = 1;
-let max = 10;
+let min = 20;
+let max = 30;
 let guessCount = 3;
 let rand = generateRandom(min, max);
+console.log(rand);
 
 
 const game = document.querySelector('#game'),
@@ -15,11 +16,16 @@ const game = document.querySelector('#game'),
 minNum.textContent = min;
 maxNum.textContent = max;
 
+//play again event
+game.addEventListener('mousedown', function(e) {
+  if(e.target.className === 'play-again'){
+    window.location.reload();
+  }
+});
+
 //listening for guess
 guessBtn.addEventListener('click', function(){
   let guess = parseInt(guessInput.value);
-
-
 
 
     if(isNaN(guess) || guess < min || guess > max){
@@ -28,7 +34,7 @@ guessBtn.addEventListener('click', function(){
     //check to win
     if(guess === rand){
       gameOver(true, 'CORRECT! You win with ' + guessCount + (guessCount===1?(' attempt remaining'):(' attempts remaining')));
-      
+
     }else if(guess > rand && guess <= max){
       guessCount--;
         setMessage('Too high. You have ' + guessCount + (guessCount===1?(' attempt left'):(' attempts left')), 'orange');
@@ -68,6 +74,9 @@ function setMessage(msg, color) {
 //rand num generation
 
 function generateRandom(lower, upper){
-  return Math.ceil(Math.random()* ((upper - lower) + lower));
+  console.log(lower);
+  console.log(upper);
+
+  return Math.floor(Math.random()*(upper - lower + 1) + lower);
 
 }
