@@ -1,7 +1,8 @@
 let min = 1;
 let max = 10;
 let guessCount = 3;
-let rand = 5;
+let rand = generateRandom(min, max);
+
 
 const game = document.querySelector('#game'),
       minNum = document.querySelector('.min-num'),
@@ -26,21 +27,37 @@ guessBtn.addEventListener('click', function(){
     }
     //check to win
     if(guess === rand){
-      guessInput.disabled = true;
-      guessInput.style.borderColor = 'green';
-      setMessage('CORRECT! You win with ' + guessCount + ' attempts remaining', 'green');
+      gameOver(true, 'CORRECT! You win with ' + guessCount + (guessCount===1?(' attempt remaining'):(' attempts remaining')));
+      // retry();
     }else if(guess > rand && guess <= max){
       guessCount--;
-        setMessage('Too high. You have ' + guessCount + ' attempts left.', 'orange');
+        setMessage('Too high. You have ' + guessCount + (guessCount===1?(' attempt left'):(' attempts left')), 'orange');
       }else if(guess < rand && guess >= min){
           guessCount--;
-          setMessage('Too low. You have ' + guessCount + ' attempts left.', 'orange');
+          setMessage('Too low. You have ' + guessCount + (guessCount===1?(' attempt left'):(' attempts left')), 'orange');
       }
       if(guessCount === 0){
-        guessInput.disabled = true;
-        setMessage('You lose!');
+        gameOver(false, 'You lose! The number was ' + rand);
+        // retry();
       }
 })
+
+//retry
+
+// function retry() {
+//   var btn = document.createElement("guess-btn");
+//   document.getElementById("guess-btn").appendChild(btn);
+// }
+
+//game over
+function gameOver(won, msg){
+  let color;
+  won === true? color = 'green': color = 'red';
+  guessInput.disabled = true;
+  guessBtn.disabled = true;
+  guessInput.style.borderColor = color;
+  setMessage(msg, color);
+}
 
 //set message
 
@@ -48,21 +65,11 @@ function setMessage(msg, color) {
 
   message.innerHTML = msg;
   message.style.color = color;
-  setTimeout(clearMsg, 3500);
-
-}
-
-//clear msg
-
-function clearMsg(){
-  message.innerHTML = '';
 }
 
 //rand num generation
 
-// function generateRandom(lower, upper){
-//   return Math.ceil(Math.random()* ((upper - lower) + lower));
-//
-// }
-//
-// var rand = generateRandom(min, max);
+function generateRandom(lower, upper){
+  return Math.ceil(Math.random()* ((upper - lower) + lower));
+
+}
