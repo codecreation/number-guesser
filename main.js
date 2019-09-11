@@ -1,8 +1,8 @@
-let min = 20;
+let min = 1;
 let max = 30;
 let guessCount = 3;
 let rand = generateRandom(min, max);
-console.log(rand);
+
 
 
 const game = document.querySelector('#game'),
@@ -17,7 +17,7 @@ minNum.textContent = min;
 maxNum.textContent = max;
 
 //play again event
-game.addEventListener('mousedown', function(e) {
+game.addEventListener('mousedown', function(e){
   if(e.target.className === 'play-again'){
     window.location.reload();
   }
@@ -65,7 +65,7 @@ function gameOver(won, msg){
 
 //set message
 
-function setMessage(msg, color) {
+function setMessage(msg, color){
 
   message.innerHTML = msg;
   message.style.color = color;
@@ -74,8 +74,6 @@ function setMessage(msg, color) {
 //rand num generation
 
 function generateRandom(lower, upper){
-  console.log(lower);
-  console.log(upper);
 
   return Math.floor(Math.random()*(upper - lower + 1) + lower);
 
